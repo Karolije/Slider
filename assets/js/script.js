@@ -116,12 +116,12 @@ const onImageClick = function(event, sliderRootElement, imagesSelector) {
     // 4. wyszukać wszystkie zdjęcia należące do danej grupy, które wykorzystasz do osadzenia w dolnym pasku
 
     const imagesList = document.querySelectorAll('.gallery__item');
-
+    const thumbsSrc = [];
+    // .filter()
     imagesList.forEach( img => {
         if(img.dataset.sliderGroupName === currentGroup) {
             const allImagesSrc = img.querySelector('img').getAttribute('src');
-
-            return allImagesSrc;
+            thumbsSrc.push(allImagesSrc);
             
         };
         
@@ -134,16 +134,54 @@ const jsSliderThItem = document.querySelector('.js-slider__thumbs-item--prototyp
 const jsSliderThumbs = document.querySelector('.js-slider__thumbs');
 
 if(jsSliderThItem && jsSliderThumbs) {
-    const cloneJsSliderThItem = jsSliderThItem.cloneNode(true);
-    jsSliderThumbs.appendChild(cloneJsSliderThItem);
+    // const cloneJsSliderThItem = jsSliderThItem.cloneNode(true);
+    // jsSliderThumbs.appendChild(cloneJsSliderThItem);
+
+    thumbsSrc.forEach(function(src) {
+        const cloneJsSliderThItem = jsSliderThItem.cloneNode(true);
+        cloneJsSliderThItem.classList.remove('js-slider__thumbs-item--prototype');
+        // cloneJsSliderThItem.querySelector('img').src = src;
+        cloneJsSliderThItem.querySelector('img').setAttribute('src', src);
+        jsSliderThumbs.appendChild(cloneJsSliderThItem);
+    });
     
 }
 
 
     // 6. zaznaczyć przy pomocy klasy [.js-slider__thumbs-image--current], który element jest aktualnie wyświetlany
 
-    event.currentTarget.classList.add('js-slider__thumbs-image--current');
+    const footerCurrentImg = document.querySelectorAll('.js-slider__thumbs-image');
+
+
+
+    // for (let i = 0; i < footerCurrentImg.length; i++) {
+    //     const footerCurrentImgSrc = footerCurrentImg.querySelector('img').getAttribute('src');
+    //     console.log(footerCurrentImgSrc);
+
+    // }
+
+
+
+
+
+
     
+    // event.currentTarget.classList.add('js-slider__thumbs-image--current');
+
+
+    const currentJpg = event.currentTarget.querySelector('img').getAttribute('src');
+    
+
+
+
+    for (let i = 0; i < thumbsSrc.length; i++) {
+        if (thumbsSrc[i] === currentJpg) {
+            // ??.classList.add('js-slider__thumbs-image--current');
+            console.log(currentJpg)
+            console.log(thumbsSrc[i])
+        }
+    }
+   
     
 }
 
@@ -211,6 +249,7 @@ const onImagePrev = function(event) {
     // 1. wyszukać aktualny wyświetlany element przy pomocy [.js-slider__thumbs-image--current]
 
     const currentImage = document.querySelector('.js-slider__thumbs-image--current');
+    
 
     // 2. znaleźć element poprzedni do wyświetlenie względem drzewa DOM dla [.js-slider__thumbs]
 
