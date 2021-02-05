@@ -97,7 +97,7 @@ const onImageClick = function(event, sliderRootElement, imagesSelector) {
     
 
     sliderRootElement.classList.add('js-slider--active');
-
+    
     // 2. wyszukać ściężkę (atrybut [src]) do klikniętego elementu i wstawić do [.js-slider__image]
 
 
@@ -111,6 +111,7 @@ const onImageClick = function(event, sliderRootElement, imagesSelector) {
     // 3. pobrać nazwę grupy zapisaną w dataset klikniętego elementu
 
     const currentGroup = event.currentTarget.dataset.sliderGroupName;
+    
 
 
     // 4. wyszukać wszystkie zdjęcia należące do danej grupy, które wykorzystasz do osadzenia w dolnym pasku
@@ -124,7 +125,6 @@ const onImageClick = function(event, sliderRootElement, imagesSelector) {
             thumbsSrc.push(allImagesSrc);
             
         };
-        
     })
 
 
@@ -143,44 +143,15 @@ if(jsSliderThItem && jsSliderThumbs) {
         // cloneJsSliderThItem.querySelector('img').src = src;
         cloneJsSliderThItem.querySelector('img').setAttribute('src', src);
         jsSliderThumbs.appendChild(cloneJsSliderThItem);
+        const cloneThItemSrc = cloneJsSliderThItem.querySelector('img').getAttribute('src');
+        
+        if (cloneThItemSrc === currentImg) {
+            cloneJsSliderThItem.children[0].classList.add('js-slider__thumbs-image--current');
+        }
     });
     
 }
 
-
-    // 6. zaznaczyć przy pomocy klasy [.js-slider__thumbs-image--current], który element jest aktualnie wyświetlany
-
-    const footerCurrentImg = document.querySelectorAll('.js-slider__thumbs-image');
-
-
-
-    // for (let i = 0; i < footerCurrentImg.length; i++) {
-    //     const footerCurrentImgSrc = footerCurrentImg.querySelector('img').getAttribute('src');
-    //     console.log(footerCurrentImgSrc);
-
-    // }
-
-
-
-
-
-
-    
-    // event.currentTarget.classList.add('js-slider__thumbs-image--current');
-
-
-    const currentJpg = event.currentTarget.querySelector('img').getAttribute('src');
-    
-
-
-
-    for (let i = 0; i < thumbsSrc.length; i++) {
-        if (thumbsSrc[i] === currentJpg) {
-            // ??.classList.add('js-slider__thumbs-image--current');
-            console.log(currentJpg)
-            console.log(thumbsSrc[i])
-        }
-    }
    
     
 }
@@ -193,6 +164,7 @@ const onImageNext = function(event) {
     // 1. wyszukać aktualny wyświetlany element przy pomocy [.js-slider__thumbs-image--current]
 
     const currentImage = document.querySelector('.js-slider__thumbs-image--current');
+    console.log(currentImage);
     
     // 2. znaleźć element następny do wyświetlenie względem drzewa DOM dla [.js-slider__thumbs]
 
